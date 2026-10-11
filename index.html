@@ -485,7 +485,19 @@ function kp(items){ return `<div class="kp">${items.map(([l,v,c]) => `<div class
 function tabsHtml(items, active, base){ return `<div class="tabs">${items.map(([k,l]) => `<a class="${active===k?'on':''}" onclick="go('${base}${k}')">${l}</a>`).join('')}</div>`; }
 
 /* ========= التنقل ========= */
-function go(r){ cur = r||'home'; search = ''; payFilter = 'all'; closeM(); render(); window.scrollTo(0,0); }
+function go(r){
+  r = r||'home';
+  const sameGroup = /^group\/[^/]+\//.test(cur) && cur.split('/')[1] === r.split('/')[1] && r.startsWith('group/');
+  cur = r; search = ''; payFilter = 'all'; closeM();
+  try{ (sameGroup ? history.replaceState : history.pushState).call(history, {r}, ''); }catch(e){}
+  render(); if(!sameGroup) window.scrollTo(0,0);
+}
+const modalOpen = () => !$('#modal').classList.contains('hidden');
+window.addEventListener('popstate', e => {
+  if(locked || modalOpen()){ closeM(); try{ history.pushState({r:cur}, ''); }catch(x){} return; }
+  cur = (e.state && e.state.r) || 'home'; search = ''; payFilter = 'all'; render(); window.scrollTo(0,0);
+});
+try{ history.replaceState({r:'home'}, ''); }catch(e){}
 function route(){ const p = cur.split('/'); return {page:p[0], id:p[1], tab:p[2]}; }
 const NAV = [['home','🏠','الرئيسية'],['years','🎓','السنوات'],['exams','📝','الامتحانات'],['honor','🏆','الشرف']];
 const navOf = p => ({settings:'home',home:'home',years:'years',year:'years',group:'years',student:'years',exams:'exams',exam:'exams',honor:'honor'}[p] || 'home');
@@ -626,21 +638,22 @@ function vYear(r){
 function groupForm(yid,id){
   const g = id ? S.groups[id] : {};
   tmpSched = (g.schedule||[]).map(x => ({...x}));
-  if(!tmpSched.length) tmpSched = [{day:6, from:'16:00', to:'17:30'}];
+  if(!tmpSched.length) tmpSched = [{day:6, from:'16:00', to:'17:00'}];
   modal(`<h3>${id?'تعديل':'إضافة'} مجموعة</h3>
     <label>اسم المجموعة<input id="f_name" value="${esc(g.name||'')}" placeholder="مثال: مجموعة أ"></label>
     <label>الاشتراك الشهري للطالب (جنيه)<input id="f_fee" type="number" inputmode="numeric" min="0" value="${g.fee ?? ''}"></label>
-    <div class="lbl">المواعيد الأسبوعية</div><div id="schedRows"></div>
-    <button class="btn ghost" onclick="readSched();tmpSched.push({day:0,from:'16:00',to:'17:30'});drawSched()">+ إضافة موعد</button>
+    <div class="lbl">المواعيد الأسبوعية <span style="font-weight:400">(الانصراف بيتحط تلقائي بعد ساعة، وتقدر تعدّله)</span></div><div id="schedRows"></div>
+    <button class="btn ghost" onclick="readSched();const L=tmpSched[tmpSched.length-1]||{day:6,from:'16:00'};tmpSched.push({day:WEEK[(WEEK.indexOf(+L.day)+1)%7],from:L.from||'16:00',to:plusHour(L.from||'16:00')});drawSched()">+ إضافة موعد</button>
     <div class="mact"><button class="btn" onclick="saveGroup('${yid}','${id||''}')">حفظ</button><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
   drawSched();
 }
 function drawSched(){
   $('#schedRows').innerHTML = tmpSched.map((x,i) => `<div class="srow">
     <select class="sd">${WEEK.map(d => `<option value="${d}" ${+x.day===d?'selected':''}>${DAYS[d]}</option>`).join('')}</select>
-    <input type="time" class="sf" value="${x.from||''}"><span>إلى</span><input type="time" class="sto" value="${x.to||''}">
+    <input type="time" class="sf" value="${x.from||''}" onchange="const t=this.closest('.srow').querySelector('.sto');if(this.value)t.value=plusHour(this.value)"><span>إلى</span><input type="time" class="sto" value="${x.to||''}">
     <button class="x" onclick="readSched();tmpSched.splice(${i},1);drawSched()">✕</button></div>`).join('');
 }
+function plusHour(t){ const [h,m] = t.split(':').map(Number), x = (h*60+m+60) % 1440; return String(Math.floor(x/60)).padStart(2,'0')+':'+String(x%60).padStart(2,'0'); }
 function readSched(){
   tmpSched = [...document.querySelectorAll('.srow')].map(r => ({day:+r.querySelector('.sd').value, from:r.querySelector('.sf').value, to:r.querySelector('.sto').value}));
 }
