@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f5e4a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>الدروس الخصوصية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5ef;--card:#fff;--ink:#14201b;--mut:#778;--line:#ecebe4;--pri:#14866a;--pri-d:#0f5e4a;--pri-l:#e6f4ef;--org:#e8a33d;--org-l:#fdf3e1;--org-d:#b7791f;--bad:#c0472a;--bad-l:#fdebe6;--pur:#7c5cd6}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{font-family:Cairo,system-ui,sans-serif;background:#e8efe9;color:var(--ink);font-size:14px}
+.app{max-width:520px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:86px;position:relative}
+a{color:inherit;text-decoration:none;cursor:pointer}
+button{font-family:inherit;cursor:pointer}
+input,select{font-family:inherit;font-size:15px;padding:9px 11px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+/* headers */
+.top{background:linear-gradient(135deg,var(--pri-d),var(--pri));color:#fff;padding:22px 18px 20px;border-radius:0 0 28px 28px}
+.top.gold{background:linear-gradient(135deg,#7a4b12,var(--org))}
+.hi{font-size:13px;opacity:.85}.nm{font-size:20px;font-weight:800;margin-top:2px;cursor:pointer}
+.mo{display:inline-flex;align-items:center;gap:4px;margin-top:10px;background:#ffffff26;padding:2px 6px 2px 10px;border-radius:20px;font-size:12px}
+.mo{color:#fff}.mo input{background:transparent;border:0;color:inherit;padding:4px;width:auto;font-size:12px;font-weight:700}.top .mo input{color-scheme:dark}
+.big{display:flex;gap:8px;margin-top:14px}
+.big div{flex:1;background:#ffffff1f;border-radius:16px;padding:9px 10px}
+.big span{font-size:11px;opacity:.85;display:block}.big b{font-size:18px}
+.sub{font-size:11px;opacity:.8;margin-top:8px}
+.hd{background:#fff;padding:18px 18px 14px;border-bottom:1px solid var(--line)}
+.bk{font-size:12px;color:var(--pri);font-weight:700}
+.hd h2{font-size:20px;margin-top:4px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ic{display:flex;gap:6px}.ic button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:5px 9px;font-size:13px}
+.ic button.del{color:var(--bad);border-color:#f3cfc5}
+.chips{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.chip{background:var(--pri-l);color:var(--pri-d);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+.chip.link{cursor:pointer}
+/* sections */
+.pad{padding:14px 16px}
+.sec{font-weight:800;font-size:15px;margin:16px 16px 8px;display:flex;justify-content:space-between;align-items:center}
+.sec small,.sec a{color:var(--pri);font-weight:600;font-size:12px}
+.qa{display:flex;gap:8px;margin:14px 16px 0}
+.qa button{flex:1;background:#fff;border:0;border-radius:16px;padding:12px 2px;font-size:11px;font-weight:700;color:var(--ink);box-shadow:0 1px 3px #0000000d}
+.qa i{display:block;font-style:normal;font-size:22px;margin-bottom:3px}
+.days{display:flex;gap:5px;margin:0 16px 12px}
+.days button{flex:1;border:0;text-align:center;padding:7px 0;border-radius:12px;background:#fff;font-size:11px;color:var(--mut);position:relative}
+.days button.on{background:var(--ink);color:#fff}
+.days button b{display:block;font-size:13px}
+.days button.today::after{content:"";position:absolute;top:4px;left:4px;width:6px;height:6px;border-radius:50%;background:var(--org)}
+.tl{display:flex;gap:8px;margin:0 16px 10px}
+.tm{width:52px;font-size:11px;color:var(--mut);padding-top:10px;text-align:center}.tm b{display:block;color:var(--ink);font-size:14px}
+.gc{flex:1;background:#fff;border-radius:16px;padding:12px;border-right:5px solid var(--pri);cursor:pointer}
+.gc.yg{margin:0 16px 10px}.gc.c1{border-color:var(--org)}.gc.c2{border-color:var(--pur)}
+.gc b{font-size:14px}.gc p{font-size:11px;color:var(--mut);margin-top:2px}
+.bar{height:6px;background:#eee;border-radius:9px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pri)}
+.gc.c1 .bar i{background:var(--org)}.gc.c2 .bar i{background:var(--pur)}
+.row{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin-top:5px}
+.kp{display:flex;gap:8px;margin:14px 16px 0}
+.kp div{flex:1;background:#fff;border-radius:14px;padding:10px 4px;text-align:center;font-size:10px;color:var(--mut)}
+.kp b{display:block;font-size:16px;color:var(--ink);white-space:nowrap}
+.kp .ok b{color:var(--pri)}.kp .no b{color:var(--bad)}
+.card{background:#fff;border-radius:16px;padding:14px;margin:0 16px 10px;cursor:pointer}
+.card .t{font-weight:800;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.card .t small{color:var(--mut);font-weight:600;font-size:11px}
+.kv{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-top:1px dashed var(--line);margin-top:6px}.kv span{color:var(--mut)}
+.ok-t{color:var(--pri)}.no-t{color:var(--bad)}
+.st{display:flex;align-items:center;gap:10px;background:#fff;margin:8px 16px;padding:10px 12px;border-radius:14px}
+.st.link{cursor:pointer}
+.av{width:38px;height:38px;flex:none;border-radius:50%;background:var(--pri-l);color:var(--pri-d);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+.st .n{flex:1;font-size:13px;font-weight:700;min-width:0}.st .n small{display:block;color:var(--mut);font-size:11px;font-weight:400}
+.pc,.pill{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;background:#f0eee8;color:var(--mut)}
+.g{background:var(--pri-l);color:#0f7a5c}.y{background:var(--org-l);color:var(--org-d)}.r{background:var(--bad-l);color:var(--bad)}
+.wa{background:#25d366;color:#fff;font-size:11px;font-weight:700;padding:5px 9px;border-radius:10px;white-space:nowrap}
+.btn{border:0;background:var(--pri);color:#fff;font-weight:700;font-size:13px;padding:7px 12px;border-radius:10px;white-space:nowrap}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.org{background:var(--org)}
+.btn.full{width:100%;padding:11px;font-size:15px}
+.tabs{display:flex;background:#eceae2;border-radius:14px;padding:4px;margin:12px 16px 0}
+.tabs a{flex:1;text-align:center;padding:7px 2px;font-size:12px;border-radius:11px;color:var(--mut);font-weight:600}
+.tabs a.on{background:#fff;color:var(--ink);font-weight:800;box-shadow:0 2px 6px #0001}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 16px 0;font-size:13px}
+.tools input{width:auto;flex:1;min-width:140px}
+.leg{display:flex;gap:10px;margin:8px 16px 0;font-size:10px;color:var(--mut)}.leg span{display:flex;align-items:center;gap:4px}.leg i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.tg{width:52px;height:30px;flex:none;border-radius:20px;background:#e2e2e2;position:relative;border:0;transition:.2s}
+.tg::after{content:"";position:absolute;top:3px;right:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px #0003}
+.tg.on{background:var(--pri)}.tg.on::after{right:25px}
+.seg{display:inline-flex;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.seg button{border:0;background:none;font-weight:700;font-size:12px;padding:6px 11px;color:var(--mut)}.seg button.on{background:var(--ink);color:#fff}
+.sum{margin:12px 16px 4px;background:var(--ink);color:#fff;border-radius:18px;padding:14px}
+.sum .sr{display:flex;justify-content:space-between;font-size:12px;margin-top:6px;opacity:.9}.sum .sr b{font-size:14px}
+.ring{display:flex;align-items:center;gap:14px}
+.circ{width:72px;height:72px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.circ div{width:56px;height:56px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:800}
+.ex{background:#fff;margin:8px 16px;border-radius:16px;padding:12px;cursor:pointer}
+.ex .t{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:800;gap:6px}.ex .t small{color:var(--mut);font-weight:400;font-size:11px}
+.ex .m{display:flex;gap:6px;margin-top:8px}.ex .m span{flex:1;background:var(--bg);border-radius:10px;padding:6px 2px;text-align:center;font-size:10px;color:var(--mut)}
+.ex .m b{display:block;font-size:14px;color:var(--ink);white-space:nowrap}
+.gr{display:flex;align-items:center;gap:8px;margin:6px 16px;background:#fff;padding:8px 12px;border-radius:14px}
+.gr .n{flex:1;font-size:13px;font-weight:700;min-width:0}
+.gb{width:64px;height:6px;flex:none;background:#eee;border-radius:6px;overflow:hidden}.gb i{display:block;height:100%}
+.gr input{width:62px;text-align:center;padding:6px;font-weight:800}
+.pod{display:flex;justify-content:center;align-items:flex-end;gap:14px;margin-top:14px}
+.pd{text-align:center;font-size:11px;width:90px;cursor:pointer}
+.pd .c{width:56px;height:56px;border-radius:50%;background:#fff;color:#7a4b12;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin:0 auto 4px;border:3px solid #fde3b0}
+.pd.f .c{width:72px;height:72px;border-color:#ffd54f;font-size:26px}.pd b{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pd .s{display:inline-block;background:#ffffff30;padding:1px 8px;border-radius:10px;margin-top:2px}
+.rk{width:28px;height:28px;flex:none;border-radius:50%;background:#f0ede4;color:var(--mut);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.rk.r1{background:#ffd54f;color:#7a4b12}.rk.r2{background:#e0e0e0;color:#555}.rk.r3{background:#f3c9a4;color:#7a4b12}
+.pts{font-weight:800;color:var(--org-d);font-size:13px;white-space:nowrap}
+.pf{background:linear-gradient(135deg,var(--pri-d),var(--pri));color:#fff;padding:18px 18px 18px;text-align:center;border-radius:0 0 28px 28px}
+.pf .bk{color:#fff;opacity:.85;text-align:right;display:block}
+.pav{width:68px;height:68px;border-radius:50%;background:#fff;color:var(--pri-d);font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:6px auto}
+.pf h2{font-size:19px}.pf p{font-size:12px;opacity:.85;margin-top:2px}
+.acts2{display:flex;gap:6px;justify-content:center;margin-top:12px;flex-wrap:wrap}.acts2 a,.acts2 button{background:#ffffff26;color:#fff;border:0;padding:6px 11px;border-radius:12px;font-size:11px;font-weight:700}
+.hist{background:#fff;margin:0 16px;border-radius:16px;padding:2px 12px}
+.hr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #f0efe9;font-size:12px;font-weight:700}.hr:last-child{border:0}
+.hr small{color:var(--mut);display:block;font-size:10px;font-weight:400}
+.dots{display:flex;gap:3px;flex-wrap:wrap;max-width:130px;justify-content:center}.dots i{width:9px;height:9px;border-radius:3px;background:var(--pri)}.dots i.a{background:#f0b4a5}
+.empty{background:#fff;border:1px dashed #cfe3db;border-radius:16px;padding:22px;text-align:center;color:var(--mut);margin:10px 16px;line-height:1.8}
+.empty a{color:var(--pri);font-weight:700}
+.note{background:var(--pri-l);border-radius:16px;padding:12px 14px;margin:16px;font-size:12px}
+.note .acts{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.hint{margin:10px 16px;font-size:11px;color:var(--mut);text-align:center}
+/* nav + fab */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:#fff;display:flex;justify-content:space-around;padding:8px 0 calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--line);z-index:10}
+.nav a{text-align:center;font-size:11px;color:#99a;flex:1}.nav a i{display:block;font-style:normal;font-size:20px;filter:grayscale(1);opacity:.7}
+.nav a.on{color:var(--pri);font-weight:800}.nav a.on i{filter:none;opacity:1}
+.fab{position:fixed;bottom:84px;z-index:11;width:56px;height:56px;border-radius:50%;background:var(--org);color:#fff;font-size:30px;border:0;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px #e8a33d77;left:max(16px,calc(50% - 244px))}
+/* modal */
+.modal{position:fixed;inset:0;background:#0007;display:flex;align-items:flex-end;justify-content:center;z-index:20}
+.modal.hidden{display:none}
+.box{background:#fff;border-radius:22px 22px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom));width:100%;max-width:520px;max-height:88vh;overflow:auto}
+.box h3{margin-bottom:12px;font-size:17px}
+.box label,.lbl{display:block;font-size:12px;font-weight:700;color:var(--mut);margin-bottom:10px}
+.box label input,.box label select{margin-top:4px}
+.srow{display:flex;gap:6px;align-items:center;margin-bottom:6px}.srow select{flex:1.3}.srow input{flex:1;min-width:0;padding:7px}
+.x{border:0;background:var(--bad-l);color:var(--bad);border-radius:8px;padding:7px 10px}
+.mact{display:flex;gap:8px;margin-top:14px}.mact .btn{flex:1;padding:11px;font-size:14px}
+.pick{display:block;width:100%;text-align:right;background:var(--bg);border:0;border-radius:12px;padding:11px 12px;margin-bottom:6px;font-size:14px;font-weight:700;color:var(--ink)}
+.pick small{display:block;font-weight:400;color:var(--mut);font-size:11px}
+.lock{position:fixed;inset:0;z-index:50;background:linear-gradient(135deg,var(--pri-d),var(--pri));display:flex;align-items:center;justify-content:center;padding:20px}
+.lock.hidden{display:none}
+.lbox{background:#fff;border-radius:24px;padding:26px 22px;width:100%;max-width:380px;text-align:center;box-shadow:0 20px 50px #0003}
+.lbox .lg{font-size:46px}.lbox h2{margin:6px 0 4px;font-size:20px}.lbox p{color:var(--mut);font-size:13px;margin-bottom:16px}
+.lbox input{margin-bottom:10px;text-align:center;font-size:17px;padding:12px}
+.lbox .lnk{color:var(--pri);font-size:13px;margin-top:14px;display:inline-block;font-weight:700}
+.lbox .err{color:var(--bad);font-size:12px;min-height:20px;margin-bottom:6px}
+#toast{position:fixed;bottom:150px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;opacity:0;transition:.25s;pointer-events:none;z-index:30;white-space:nowrap}
+#toast.show{opacity:1}
+
+/* ===== تابلت ===== */
+@media(min-width:760px){
+  body{font-size:15px}
+  .app,.nav{max-width:1100px}
+  .fab{left:max(16px,calc(50% - 534px));bottom:90px}
+  #app{display:grid;grid-template-columns:1fr 1fr;padding:0 8px;align-content:start}
+  #app>*{grid-column:1/-1}
+  #app>.st,#app>.card,#app>.ex,#app>.gr,#app>.tl,#app>.gc{grid-column:auto;margin:5px 8px!important}
+  #app>.top,#app>.hd,#app>.pf{margin:0 -8px}
+  #app>.tabs,#app>.kp,#app>.tools,#app>.sum,#app>.qa,#app>.days,#app>.hist,#app>.leg,#app>.chips{margin-left:8px;margin-right:8px}
+  .qa button{padding:16px 4px;font-size:13px}.qa i{font-size:26px}
+  .days button{padding:10px 0;font-size:13px}
+  .big b{font-size:24px}.kp b{font-size:20px}
+  .modal{align-items:center}.box{border-radius:22px;max-width:560px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <main id="app"></main>
+  <button class="fab" id="fab" onclick="fabClick()">+</button>
+  <nav class="nav" id="nav"></nav>
+</div>
+<div id="modal" class="modal hidden" onclick="if(event.target===this)closeM()"><div class="box" id="modalBox"></div></div>
+<div id="lock" class="lock hidden"><div class="lbox" id="lockBox"></div></div>
+<div id="toast"></div>
+
+<script>
+/* ========= إعدادات Firebase =========
+   ضع بيانات مشروعك هنا للمزامنة على السحابة.
+   لو تركتها فارغة، يحفظ التطبيق البيانات على الجهاز فقط. */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyB8FRhzm7_zVfbKs0KlCfDZYGl1pnn3FWI",
+  authDomain: "gogo-b8e7d.firebaseapp.com",
+  projectId: "gogo-b8e7d",
+  storageBucket: "gogo-b8e7d.firebasestorage.app",
+  messagingSenderId: "1094223756593",
+  appId: "1:1094223756593:web:617d2be2513a4328828410"
+};
+
+const USE_FB = !!FIREBASE_CONFIG.apiKey;
+const COLS = ['years','groups','students','attendance','payments','exams','settings'];
+const S = {}; COLS.forEach(c => S[c] = {});
+let fs = null, quiet = false;
+const DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const WEEK = [6,0,1,2,3,4,5];
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+const today = () => { const d = new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+const thisMonth = () => today().slice(0,7);
+const num = n => (+n||0).toLocaleString('ar-EG');
+const dec = n => (Math.round((+n||0)*10)/10).toLocaleString('ar-EG');
+const money = n => num(n) + ' ج';
+const monthName = m => new Date(m+'-01T00:00').toLocaleDateString('ar-EG',{month:'long',year:'numeric'});
+const dShort = d => num(+d.slice(8)) + '/' + num(+d.slice(5,7));
+const dayOf = d => new Date(d+'T00:00').getDay();
+const byName = (a,b) => a.name.localeCompare(b.name,'ar');
+const list = c => Object.values(S[c]);
+const initial = n => (String(n||'؟').trim()[0] || '؟');
+
+let month = thisMonth(), attDate = today(), search = '', payFilter = 'all', tmpSched = [], homeDay = new Date().getDay(), honYear = 'all', cur = 'home';
+
+/* ========= التخزين ========= */
+let canStore = true; try{ localStorage.setItem('_t','1'); localStorage.removeItem('_t'); }catch(e){ canStore = false; }
+function persist(){ if(!fs && canStore) try{ localStorage.setItem('tutorData', JSON.stringify(S)); }catch(e){ canStore = false; } }
+function save(c,id,data){
+  data = {...data, id}; S[c][id] = data;
+  if(fs) fs.collection(c).doc(id).set(data).catch(e => toast('خطأ في الحفظ: '+e.message)); else persist();
+  if(!quiet) render();
+}
+function del(c,id){
+  delete S[c][id];
+  if(fs) fs.collection(c).doc(id).delete(); else persist();
+  if(!quiet) render();
+}
+function loadJS(src){ return new Promise((ok,no) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); }); }
+let locked = true, auth = null, unsubs = [], usersUnsub = null, USERS = {}, curUser = null, settingUp = false;
+const getLS = k => { try{ return localStorage.getItem(k); }catch(e){ return null; } };
+const setLS = (k,v) => { try{ v==null ? localStorage.removeItem(k) : localStorage.setItem(k,v); }catch(e){} };
+async function sha(t){
+  try{ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('tutor:'+t)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join(''); }
+  catch(e){ let x = 7; for(const c of 'tutor:'+t) x = (x*31 + c.charCodeAt(0)) | 0; return 'x'+x; }
+}
+const toEmail = u => u.toLowerCase()+'@tutorapp.local';
+const validU = u => /^[a-z0-9._-]{3,20}$/.test(u);
+const isAdmin = () => curUser && curUser.role==='admin';
+const ROLE = {admin:'مدير', assistant:'مساعد'};
+const localUsers = () => { try{ return JSON.parse(getLS('tutorUsers')||'[]'); }catch(e){ return []; } };
+const saveLocalUsers = a => setLS('tutorUsers', JSON.stringify(a));
+const fbErr = e => { const c = e.code||''; return /network|unavailable/.test(c) ? 'مفيش إنترنت' : /already-in-use/.test(c) ? 'اسم المستخدم ده مستخدم قبل كده — اختار اسم تاني' : /weak-password/.test(c) ? 'كلمة السر ضعيفة — ٦ على الأقل' : /operation-not-allowed/.test(c) ? 'فعّل Email/Password من Authentication في Firebase' : /wrong-password|user-not-found|invalid-credential|invalid-login/.test(c) ? 'اسم المستخدم أو كلمة السر غلط' : /too-many/.test(c) ? 'محاولات كتير — استنى شوية وجرب تاني' : /permission/.test(c) ? 'مفيش صلاحية — راجع قواعد Firestore' : (e.message||'خطأ'); };
+
+function attach(){
+  detach();
+  COLS.forEach(c => unsubs.push(fs.collection(c).onSnapshot(sn => {
+    S[c] = {}; sn.forEach(d => S[c][d.id] = {...d.data(), id:d.id}); render();
+  }, e => toast(fbErr(e)))));
+  if(isAdmin()) usersUnsub = fs.collection('users').onSnapshot(sn => { USERS = {}; sn.forEach(d => USERS[d.id] = {...d.data(), id:d.id}); render(); }, () => {});
+}
+function detach(){ unsubs.forEach(u => u()); unsubs = []; if(usersUnsub){ usersUnsub(); usersUnsub = null; } USERS = {}; COLS.forEach(c => S[c] = {}); }
+
+async function init(){
+  if(USE_FB){
+    lockScreen('<div class="lg">⏳</div><h2>جاري التحميل...</h2>');
+    try{
+      for(const m of ['app','firestore','auth']) await loadJS(`https://www.gstatic.com/firebasejs/10.12.2/firebase-${m}-compat.js`);
+      firebase.initializeApp(FIREBASE_CONFIG); fs = firebase.firestore();
+      fs.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+      auth = firebase.auth();
+      auth.onAuthStateChanged(u => { if(settingUp) return; if(u) afterLogin(u); else { curUser = null; detach(); loginOrSetup(); } });
+    }catch(e){
+      fs = null;
+      lockScreen('<div class="lg">⚠️</div><h2>تعذر الاتصال</h2><p>اتأكد من الإنترنت وافتح التطبيق تاني</p><button class="btn full" onclick="location.reload()">إعادة المحاولة</button>');
+    }
+    return;
+  }
+  if(canStore) try{ const raw = JSON.parse(localStorage.getItem('tutorData')||'{}'); COLS.forEach(c => S[c] = raw[c]||{}); }catch(e){}
+  if(!canStore){ curUser = {username:'زائر', role:'admin'}; return unlock(); }
+  const me = localUsers().find(x => x.u === getLS('tutorUser'));
+  if(me){ curUser = {username:me.u, role:me.role}; unlock(); } else loginOrSetup();
+}
+async function loginOrSetup(msg){
+  if(!auth) return localUsers().length ? showLogin(msg) : showSetup();
+  try{ const d = await fs.collection('meta').doc('setup').get(); d.exists ? showLogin(msg) : showSetup(); }
+  catch(e){ showLogin(msg); }
+}
+async function afterLogin(u){
+  lockScreen('<div class="lg">⏳</div><h2>جاري الدخول...</h2>');
+  try{
+    const d = await fs.collection('users').doc(u.uid).get();
+    if(!d.exists){ await auth.signOut(); return; }
+    curUser = {...d.data(), id:u.uid};
+  }catch(e){
+    if(/permission/.test(e.code||'')){ await auth.signOut(); return showLogin('الحساب ده مالوش صلاحية دخول'); }
+    curUser = {id:u.uid, username:(u.email||'').split('@')[0], role:'assistant'};
+  }
+  attach(); unlock();
+}
+
+/* ========= شاشة الدخول ========= */
+const tTitle = () => esc(S.settings.main?.teacherName || getLS('tutorTitle') || 'الدروس الخصوصية');
+function lockScreen(html){ locked = true; closeM(); $('#lockBox').innerHTML = html; $('#lock').classList.remove('hidden'); setTimeout(() => { const i = $('#lockBox input'); i && i.focus(); }, 80); }
+function unlock(){ locked = false; $('#lock').classList.add('hidden'); render(); }
+const lerr = (m, ok) => { const e = $('#lerr'); if(!e) return; e.style.color = ok ? 'var(--pri)' : ''; e.textContent = m; };
+const busy = (on, txt) => { const b = $('#lbtn'); if(b){ b.disabled = on; b.textContent = txt; } };
+const uIn = '<input id="lu" placeholder="اسم المستخدم (إنجليزي)" dir="ltr" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="username">';
+function showSetup(){
+  lockScreen(`<div class="lg">👋</div><h2>${tTitle()}</h2><p>أول مرة؟ اعمل حساب المدير.<br>وبعدين تضيف باقي المستخدمين من الإعدادات.</p>${uIn}
+    <input id="p1" type="password" placeholder="كلمة السر (٦ على الأقل)" dir="ltr" autocomplete="new-password">
+    <input id="p2" type="password" placeholder="اكتب كلمة السر تاني" dir="ltr" autocomplete="new-password" onkeydown="if(event.key==='Enter')doSetup()">
+    <div class="err" id="lerr"></div><button class="btn full" id="lbtn" onclick="doSetup()">إنشاء الحساب والدخول</button>`);
+}
+async function doSetup(){
+  const u = $('#lu').value.trim().toLowerCase(), a = $('#p1').value, b = $('#p2').value;
+  if(!validU(u)) return lerr('اسم المستخدم: حروف إنجليزي أو أرقام (٣ على الأقل) بدون مسافات');
+  if(a.length < 6) return lerr('كلمة السر ٦ حروف أو أرقام على الأقل');
+  if(a !== b) return lerr('الكلمتين مش زي بعض');
+  if(auth){
+    busy(true, 'جاري الإنشاء...'); settingUp = true;
+    try{
+      const c = await auth.createUserWithEmailAndPassword(toEmail(u), a);
+      await fs.collection('users').doc(c.user.uid).set({username:u, role:'admin', created:Date.now()});
+      await fs.collection('meta').doc('setup').set({done:true, at:Date.now()});
+      settingUp = false; afterLogin(c.user);
+    }catch(e){ settingUp = false; busy(false, 'إنشاء الحساب والدخول'); lerr(fbErr(e)); }
+    return;
+  }
+  saveLocalUsers([{u, h: await sha(u+':'+a), role:'admin'}]); setLS('tutorUser', u);
+  curUser = {username:u, role:'admin'}; unlock(); toast('أهلاً '+u);
+}
+function showLogin(msg){
+  lockScreen(`<div class="lg">🔒</div><h2>${tTitle()}</h2><p>سجّل الدخول</p>${uIn}
+    <input id="p1" type="password" placeholder="كلمة السر" dir="ltr" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="err" id="lerr">${esc(msg||'')}</div><button class="btn full" id="lbtn" onclick="doLogin()">دخول</button>
+    <div class="hint" style="margin:14px 0 0">نسيت كلمة السر؟ اطلب من المدير يعملك حساب جديد</div>`);
+}
+async function doLogin(){
+  const u = $('#lu').value.trim().toLowerCase(), p = $('#p1').value;
+  if(!u || !p) return lerr('اكتب اسم المستخدم وكلمة السر');
+  if(auth){
+    busy(true, 'جاري الدخول...');
+    try{ await auth.signInWithEmailAndPassword(toEmail(u), p); }catch(e){ busy(false, 'دخول'); lerr(fbErr(e)); }
+    return;
+  }
+  const me = localUsers().find(x => x.u === u);
+  if(me && me.h === await sha(u+':'+p)){ setLS('tutorUser', u); curUser = {username:u, role:me.role}; unlock(); }
+  else { lerr('اسم المستخدم أو كلمة السر غلط'); $('#p1').value = ''; }
+}
+function logout(){ closeM(); go('home'); if(auth) auth.signOut(); else { setLS('tutorUser', null); curUser = null; showLogin(); } }
+
+/* ========= المستخدمين ========= */
+function usersList(){ return auth ? Object.values(USERS).map(x => ({id:x.id, u:x.username, role:x.role})) : localUsers().map(x => ({id:x.u, u:x.u, role:x.role})); }
+function userForm(){
+  modal(`<h3>إضافة مستخدم</h3>
+    <label>اسم المستخدم (إنجليزي بدون مسافات)<input id="nu" dir="ltr" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="مثال: ahmed"></label>
+    <label>كلمة السر (٦ على الأقل)<input id="np" type="text" dir="ltr" autocomplete="off"></label>
+    <label>الصلاحية<select id="nr"><option value="assistant">مساعد — يسجّل حضور ودفع وامتحانات</option><option value="admin">مدير — كل حاجة + إدارة المستخدمين</option></select></label>
+    <div class="mact"><button class="btn" id="nbtn" onclick="saveUser()">إضافة</button><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
+}
+async function saveUser(){
+  const u = $('#nu').value.trim().toLowerCase(), p = $('#np').value, role = $('#nr').value;
+  if(!validU(u)) return toast('اسم المستخدم: إنجليزي أو أرقام، ٣ على الأقل');
+  if(p.length < 6) return toast('كلمة السر ٦ على الأقل');
+  if(usersList().some(x => x.u === u)) return toast('الاسم ده موجود');
+  if(auth){
+    const b = $('#nbtn'); b.disabled = true; b.textContent = 'جاري الإضافة...';
+    try{
+      const sec = firebase.apps.find(a => a.name==='sec') || firebase.initializeApp(FIREBASE_CONFIG, 'sec');
+      await sec.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+      const c = await sec.auth().createUserWithEmailAndPassword(toEmail(u), p);
+      await fs.collection('users').doc(c.user.uid).set({username:u, role, created:Date.now()});
+      await sec.auth().signOut();
+      closeM(); toast('تمت إضافة '+u);
+    }catch(e){ b.disabled = false; b.textContent = 'إضافة'; toast(fbErr(e)); }
+    return;
+  }
+  const a = localUsers(); a.push({u, h: await sha(u+':'+p), role}); saveLocalUsers(a); closeM(); render(); toast('تمت إضافة '+u);
+}
+function delUser(id){
+  const x = usersList().find(v => v.id===id); if(!x) return;
+  if(x.u === curUser.username) return toast('مينفعش تحذف نفسك');
+  if(x.role==='admin' && usersList().filter(v => v.role==='admin').length < 2) return toast('لازم يفضل مدير واحد على الأقل');
+  ask('حذف المستخدم "'+x.u+'"؟ مش هيقدر يدخل تاني.', async () => {
+    if(auth){ try{ await fs.collection('users').doc(id).delete(); toast('تم الحذف'); }catch(e){ toast(fbErr(e)); } }
+    else { saveLocalUsers(localUsers().filter(v => v.u !== x.u)); render(); toast('تم الحذف'); }
+  });
+}
+function passForm(){
+  modal(`<h3>تغيير كلمة السر</h3><label>كلمة السر الحالية<input id="c0" type="password" dir="ltr"></label>
+    <label>الجديدة (٦ على الأقل)<input id="c1" type="password" dir="ltr"></label><label>الجديدة تاني<input id="c2" type="password" dir="ltr"></label>
+    <div class="mact"><button class="btn" id="cbtn" onclick="changePass()">حفظ</button><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
+}
+async function changePass(){
+  const o = $('#c0').value, a = $('#c1').value;
+  if(a.length < 6) return toast('كلمة السر ٦ على الأقل'); if(a !== $('#c2').value) return toast('الكلمتين مش زي بعض');
+  if(auth){
+    try{ const usr = auth.currentUser; await usr.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(usr.email, o)); await usr.updatePassword(a); closeM(); toast('تم تغيير كلمة السر'); }
+    catch(e){ toast(/wrong|invalid/.test(e.code||'') ? 'كلمة السر الحالية غلط' : fbErr(e)); }
+    return;
+  }
+  const all = localUsers(), me = all.find(x => x.u === curUser.username);
+  if(!me || me.h !== await sha(me.u+':'+o)) return toast('كلمة السر الحالية غلط');
+  me.h = await sha(me.u+':'+a); saveLocalUsers(all); closeM(); toast('تم تغيير كلمة السر');
+}
+function uploadLocal(){
+  ask('رفع البيانات المحفوظة على الجهاز ده للسحابة؟', () => {
+    try{ const d = JSON.parse(getLS('tutorData')||'{}'); quiet = true; COLS.forEach(c => Object.values(d[c]||{}).forEach(x => save(c, x.id, x))); quiet = false; render(); toast('تم رفع البيانات'); }
+    catch(e){ quiet = false; toast('تعذر الرفع'); }
+  });
+}
+
+/* ========= الإعدادات ========= */
+function vSettings(){
+  fabFn = null;
+  let h = `<div class="hd"><a class="bk" onclick="go('home')">‹ الرئيسية</a><h2>⚙️ الإعدادات</h2></div>
+    <div class="sec">الحساب</div>
+    <div class="st"><div class="av">👤</div><div class="n" dir="auto">${esc(curUser?.username||'')}<small>${ROLE[curUser?.role]||''}</small></div>
+      <button class="btn ghost" onclick="passForm()">🔑 كلمة السر</button><button class="btn ghost" style="color:var(--bad)" onclick="logout()">خروج</button></div>
+    <div class="sec">التطبيق</div>
+    <div class="st link" onclick="nameForm()"><div class="av">✏️</div><div class="n">اسم المدرس / التطبيق<small>${tTitle()}</small></div></div>`;
+  if(isAdmin()){
+    const us = usersList().sort((a,b) => (a.role==='admin'?0:1)-(b.role==='admin'?0:1) || a.u.localeCompare(b.u));
+    h += `<div class="sec">المستخدمين (${num(us.length)}) <a onclick="userForm()">+ مستخدم</a></div>` +
+      us.map(x => `<div class="st"><div class="av">${esc(x.u[0].toUpperCase())}</div><div class="n" dir="ltr" style="text-align:right">${esc(x.u)}<small>${ROLE[x.role]||x.role}${x.u===curUser.username?' · أنت':''}</small></div>
+        ${x.u===curUser.username ? '' : `<button class="btn ghost" style="color:var(--bad)" onclick="delUser('${x.id}')">حذف</button>`}</div>`).join('');
+    h += `<div class="hint">المساعد يقدر يسجّل كل حاجة، لكن مايقدرش يضيف أو يحذف مستخدمين. لو حد نسي كلمة السر احذفه واعمله حساب باسم جديد.</div>`;
+  }
+  return h + `<div class="sec">البيانات</div>` + backupBlock();
+}
+
+/* ========= حسابات ========= */
+const yearGroups = y => list('groups').filter(g => g.yearId===y).sort(byName);
+const groupStudents = g => list('students').filter(s => s.groupId===g).sort(byName);
+const sortedYears = () => list('years').sort((a,b) => (a.order||0)-(b.order||0));
+const sortedGroups = () => list('groups').sort((a,b) => ((S.years[a.yearId]?.order||0)-(S.years[b.yearId]?.order||0)) || byName(a,b));
+const groupColor = g => { const i = sortedGroups().findIndex(x => x.id===g.id); return i%3 ? 'c'+(i%3) : ''; };
+const feeOf = s => (s.fee!=='' && s.fee!=null) ? +s.fee : (+S.groups[s.groupId]?.fee || 0);
+const payOf = (sid,m) => S.payments[sid+'_'+m];
+const joinOf = s => s.joined || (s.created ? new Date(s.created).toISOString().slice(0,10) : '0000');
+function groupStats(g,m){
+  const st = groupStudents(g.id); let expected=0, collected=0, paid=0;
+  st.forEach(s => { expected += feeOf(s); const p = payOf(s.id,m); if(p){ paid++; collected += +p.amount||0; } });
+  return {count:st.length, expected, collected, paid, unpaid:st.length-paid};
+}
+function sumStats(groups,m){
+  return groups.reduce((a,g) => { const s = groupStats(g,m); for(const k in s) a[k]+=s[k]; return a; }, {count:0,expected:0,collected:0,paid:0,unpaid:0});
+}
+const sessionsOf = (gid,m) => list('attendance').filter(a => a.groupId===gid && (!m || a.date.startsWith(m))).sort((a,b) => a.date.localeCompare(b.date));
+function attStat(s,m){
+  const ses = sessionsOf(s.groupId,m).filter(a => a.date >= joinOf(s));
+  const p = ses.filter(a => a.present && a.present[s.id]).length;
+  return {p, t:ses.length, pct: ses.length ? Math.round(p*100/ses.length) : null};
+}
+const pctCls = p => p==null ? '' : p>=85 ? 'g' : p>=60 ? 'y' : 'r';
+const pctPill = p => p==null ? '<span class="pc">لا حصص</span>' : `<span class="pc ${pctCls(p)}">حضور ${num(p)}٪</span>`;
+const examsOf = (gid,m) => list('exams').filter(e => (!gid || e.groupId===gid) && (!m || e.date.startsWith(m))).sort((a,b) => b.date.localeCompare(a.date));
+const hasGrade = (e,sid) => e.grades && e.grades[sid]!=null && e.grades[sid]!=='';
+function examAvg(s,m){
+  const ex = examsOf(s.groupId,m).filter(e => hasGrade(e,s.id) && +e.max>0);
+  return ex.length ? Math.round(ex.reduce((a,e) => a + (+e.grades[s.id])/(+e.max), 0)*100/ex.length) : null;
+}
+function points(s,m){
+  const v = [attStat(s,m).pct, examAvg(s,m)].filter(x => x!=null);
+  return v.length ? Math.round(v.reduce((a,b) => a+b,0)/v.length) : null;
+}
+function examStats(e){
+  const st = groupStudents(e.groupId), sc = st.filter(s => hasGrade(e,s.id)).map(s => +e.grades[s.id]);
+  return {n:sc.length, total:st.length, avg: sc.length ? sc.reduce((a,b)=>a+b,0)/sc.length : 0, max: sc.length ? Math.max(...sc) : 0, min: sc.length ? Math.min(...sc) : 0};
+}
+function ranking(yearId){
+  return list('students').filter(s => S.groups[s.groupId] && (yearId==='all' || s.yearId===yearId))
+    .map(s => ({s, p:points(s,month)})).filter(x => x.p!=null).sort((a,b) => b.p-a.p || byName(a.s,b.s));
+}
+function fmtT(t){ if(!t) return ''; let [h,m] = t.split(':').map(Number); const ap = h>=12?'م':'ص'; h = h%12||12; return num(h)+':'+String(m).padStart(2,'0').replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d])+' '+ap; }
+const sortSched = g => (g.schedule||[]).slice().sort((a,b) => (WEEK.indexOf(+a.day)-WEEK.indexOf(+b.day)) || (a.from||'').localeCompare(b.from||''));
+const schedChips = g => sortSched(g).map(x => `<span class="chip">${DAYS[x.day]} ${fmtT(x.from)}</span>`).join('');
+const schedText = g => sortSched(g).map(x => DAYS[x.day]+' '+fmtT(x.from)).join('، ');
+const gLabel = g => (S.years[g.yearId]?.name||'') + ' · ' + g.name;
+
+/* ========= عناصر مشتركة ========= */
+const empty = msg => `<div class="empty">${msg}</div>`;
+const monthChip = () => `<span class="mo"><input type="month" id="monthSel" value="${month}" onchange="month=this.value||thisMonth();render()"></span>`;
+const tel = p => p ? `<a href="tel:${esc(p)}">${esc(p)}</a>` : '—';
+function waUrl(s, txt){
+  let n = String(s.parentPhone || s.phone || '').replace(/\D/g,''); if(!n) return '';
+  if(n.startsWith('0')) n = '2'+n;
+  return `https://wa.me/${n}?text=${encodeURIComponent(txt)}`;
+}
+function waRemind(s){
+  const u = waUrl(s, `تذكير: اشتراك شهر ${monthName(month)} للطالب ${s.name} بقيمة ${feeOf(s)} جنيه. شكراً`);
+  return u ? `<a class="wa" target="_blank" href="${u}" onclick="event.stopPropagation()">واتساب</a>` : '';
+}
+function kp(items){ return `<div class="kp">${items.map(([l,v,c]) => `<div class="${c||''}"><b>${v}</b>${l}</div>`).join('')}</div>`; }
+function tabsHtml(items, active, base){ return `<div class="tabs">${items.map(([k,l]) => `<a class="${active===k?'on':''}" onclick="go('${base}${k}')">${l}</a>`).join('')}</div>`; }
+
+/* ========= التنقل ========= */
+function go(r){ cur = r||'home'; search = ''; payFilter = 'all'; closeM(); render(); window.scrollTo(0,0); }
+function route(){ const p = cur.split('/'); return {page:p[0], id:p[1], tab:p[2]}; }
+const NAV = [['home','🏠','الرئيسية'],['years','🎓','السنوات'],['exams','📝','الامتحانات'],['honor','🏆','الشرف']];
+const navOf = p => ({settings:'home',home:'home',years:'years',year:'years',group:'years',student:'years',exams:'exams',exam:'exams',honor:'honor'}[p] || 'home');
+let fabFn = null;
+function render(){
+  if(locked) return;
+  const r = route();
+  $('#nav').innerHTML = NAV.map(([k,i,l]) => `<a class="${navOf(r.page)===k?'on':''}" onclick="go('${k}')"><i>${i}</i>${l}</a>`).join('');
+  const ae = document.activeElement, keep = ae && ae.id && ae.closest && ae.closest('#app');
+  const aid = keep ? ae.id : null, aval = keep ? ae.value : null; let pos = null; try{ pos = ae.selectionStart; }catch(e){}
+  fabFn = null;
+  const v = {settings:vSettings, home:vHome, years:vYears, year:vYear, group:vGroup, student:vStudent, exams:vExams, exam:vExam, honor:vHonor}[r.page] || vHome;
+  $('#app').innerHTML = v(r);
+  $('#fab').style.display = fabFn ? 'flex' : 'none';
+  if(aid){ const el = document.getElementById(aid); if(el){ if(aval!=null && el.value!==aval && el.type!=='month' && el.type!=='date') el.value = aval; el.focus(); try{ if(pos!=null) el.setSelectionRange(pos,pos); }catch(e){} } }
+}
+function fabClick(){ fabFn && fabFn(); }
+const notFound = () => empty('غير موجود. <a onclick="go(\'years\')">رجوع للسنوات الدراسية</a>');
+
+/* ========= الرئيسية ========= */
+function vHome(){
+  fabFn = quickMenu;
+  const groups = sortedGroups(), t = sumStats(groups, month), td = new Date().getDay();
+  const tName = S.settings.main?.teacherName || 'الدروس الخصوصية';
+  const hr = new Date().getHours();
+  let h = `<div class="top"><div class="hi">${hr<12?'صباح الخير':'مساء الخير'} 👋</div>
+    <div style="display:flex;justify-content:space-between;align-items:center"><div class="nm" onclick="nameForm()">${esc(tName)} ✏️</div><button onclick="go('settings')" style="background:#ffffff26;border:0;color:#fff;border-radius:12px;padding:6px 10px;font-size:15px" title="الإعدادات">⚙️</button></div>${monthChip()}
+    <div class="big"><div><span>الطلاب</span><b>${num(t.count)}</b></div><div><span>المحصّل</span><b>${num(t.collected)}</b></div><div><span>لم يدفعوا</span><b>${num(t.unpaid)}</b></div></div>
+    <div class="sub">إجمالي اشتراكات ${monthName(month)}: ${money(t.expected)} · المتبقي ${money(Math.max(t.expected-t.collected,0))}</div></div>
+  <div class="qa">
+    <button onclick="pickGroup('تسجيل حضور', g => {attDate=today();go('group/'+g+'/attendance')}, true)"><i>✅</i>تسجيل حضور</button>
+    <button onclick="pickGroup('تسجيل دفع', g => go('group/'+g+'/payments'))"><i>💰</i>تسجيل دفع</button>
+    <button onclick="examForm()"><i>📝</i>امتحان جديد</button>
+    <button onclick="pickGroup('طالب جديد في', g => studentForm(null, S.groups[g].yearId, g))"><i>👤</i>طالب جديد</button>
+  </div>`;
+  if(!groups.length) return h + `<div class="sec">ابدأ من هنا</div>` + empty('أضف <a onclick="go(\'years\')">سنة دراسية</a>، وجواها المجموعات بمواعيدها الأسبوعية، وبعدين سجّل الطلاب.');
+  h += `<div class="sec">مواعيد الأسبوع</div><div class="days">` + WEEK.map(d => {
+    const c = groups.filter(g => (g.schedule||[]).some(x => +x.day===d)).length;
+    return `<button class="${d===homeDay?'on':''} ${d===td?'today':''}" onclick="homeDay=${d};render()">${DAYS[d].replace('ال','')}<b>${c?num(c):'—'}</b></button>`;
+  }).join('') + '</div>';
+  const sl = [];
+  groups.forEach(g => (g.schedule||[]).forEach(x => { if(+x.day===homeDay) sl.push({g,x}); }));
+  sl.sort((a,b) => (a.x.from||'').localeCompare(b.x.from||''));
+  h += sl.length ? sl.map(({g,x}) => { const s = groupStats(g,month), pct = s.count ? s.paid*100/s.count : 0;
+    return `<div class="tl"><div class="tm"><b>${fmtT(x.from).split(' ')[0]}</b>${fmtT(x.from).split(' ')[1]}</div>
+      <div class="gc ${groupColor(g)}" onclick="${homeDay===td?"attDate=today();":''}go('group/${g.id}/attendance')"><b>${esc(g.name)} — ${esc(S.years[g.yearId]?.name||'')}</b>
+      <p>${fmtT(x.from)}${x.to?' - '+fmtT(x.to):''} · ${num(s.count)} طالب</p><div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="row"><span>دفع ${num(s.paid)}</span><span>لم يدفع ${num(s.unpaid)}</span></div></div></div>`; }).join('')
+    : empty(`لا توجد مجموعات يوم ${DAYS[homeDay]}`);
+  const top = ranking('all').slice(0,3);
+  if(top.length) h += `<div class="sec">🏆 أوائل الشهر <a onclick="go('honor')">لوحة الشرف</a></div>` + top.map((x,i) => rankRow(x,i)).join('');
+  h += `<div class="sec">ملخص المجموعات — ${monthName(month)}</div>` + groups.map(g => { const s = groupStats(g,month);
+    return `<div class="card" onclick="go('group/${g.id}/payments')"><div class="t">${esc(g.name)} <small>${esc(S.years[g.yearId]?.name||'')}</small></div>
+      <div class="kv"><span>${num(s.count)} طالب · اشتراك إجمالي</span><b>${money(s.expected)}</b></div>
+      <div class="kv"><span>المحصّل</span><b>${money(s.collected)} <span class="ok-t">(${num(s.paid)} دفع)</span> <span class="no-t">${num(s.unpaid)} لم يدفع</span></b></div></div>`; }).join('');
+  return h;
+}
+function rankRow(x,i){
+  const s = x.s, g = S.groups[s.groupId];
+  return `<div class="st link" onclick="go('student/${s.id}')"><div class="rk ${i<3?'r'+(i+1):''}">${num(i+1)}</div><div class="n">${esc(s.name)}<small>${esc(S.years[s.yearId]?.name||'')} · ${esc(g?.name||'')}</small></div><span class="pts">${num(x.p)} نقطة</span></div>`;
+}
+function quickMenu(){
+  modal(`<h3>إضافة سريعة</h3>
+    <button class="pick" onclick="pickGroup('تسجيل حضور', g => {attDate=today();go('group/'+g+'/attendance')}, true)">✅ تسجيل حضور</button>
+    <button class="pick" onclick="pickGroup('تسجيل دفع', g => go('group/'+g+'/payments'))">💰 تسجيل دفع</button>
+    <button class="pick" onclick="examForm()">📝 امتحان جديد</button>
+    <button class="pick" onclick="pickGroup('طالب جديد في', g => studentForm(null, S.groups[g].yearId, g))">👤 طالب جديد</button>
+    <button class="pick" onclick="yearForm()">🎓 سنة دراسية جديدة</button>
+    <div class="mact"><button class="btn ghost" onclick="closeM()">إغلاق</button></div>`);
+}
+let pickCb = null;
+function pickGroup(title, cb, todayFirst){
+  let gs = sortedGroups(); if(!gs.length){ closeM(); return toast('أضف سنة دراسية ومجموعة أولاً'); }
+  const td = new Date().getDay();
+  if(todayFirst) gs = gs.slice().sort((a,b) => ((b.schedule||[]).some(x=>+x.day===td)) - ((a.schedule||[]).some(x=>+x.day===td)));
+  pickCb = cb;
+  modal(`<h3>${title} — اختر المجموعة</h3>` + gs.map(g => { const isT = (g.schedule||[]).some(x=>+x.day===td);
+    return `<button class="pick" onclick="pickCb('${g.id}')">${esc(g.name)} ${todayFirst&&isT?'<span class="chip">النهارده</span>':''}<small>${esc(S.years[g.yearId]?.name||'')}${schedText(g)?' · '+schedText(g):''}</small></button>`; }).join('') +
+    `<div class="mact"><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
+}
+function nameForm(){
+  modal(`<h3>اسم المدرس / التطبيق</h3><label>الاسم<input id="f_name" value="${esc(S.settings.main?.teacherName||'')}" placeholder="مثال: أ. محمد — رياضيات"></label>
+    <div class="mact"><button class="btn" onclick="save('settings','main',{teacherName:$('#f_name').value.trim()});setLS('tutorTitle',$('#f_name').value.trim());closeM()">حفظ</button><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
+}
+
+/* ========= السنوات ========= */
+function vYears(){
+  fabFn = () => yearForm();
+  const ys = sortedYears();
+  let h = `<div class="hd"><h2>السنوات الدراسية ${monthChip().replace('class="mo"','class="mo" style="background:var(--pri-l);color:var(--pri-d);margin:0"').replace('color-scheme:dark','')}</h2></div><div style="height:6px"></div>`;
+  if(!ys.length) h += empty('أضف أول سنة دراسية بزرار + (مثال: الصف الثالث الإعدادي)');
+  h += ys.map(y => { const gs = yearGroups(y.id), st = sumStats(gs,month);
+    return `<div class="card" onclick="go('year/${y.id}')"><div class="t">${esc(y.name)} <small>${num(gs.length)} مجموعة · ${num(st.count)} طالب</small></div>
+      <div class="kv"><span>اشتراكات ${monthName(month)}</span><b>${money(st.expected)}</b></div>
+      <div class="kv"><span>دفع / لم يدفع</span><b><span class="ok-t">${num(st.paid)}</span> / <span class="no-t">${num(st.unpaid)}</span></b></div></div>`;
+  }).join('');
+  return h;
+}
+function yearForm(id){
+  const y = id ? S.years[id] : {};
+  modal(`<h3>${id?'تعديل':'إضافة'} سنة دراسية</h3>
+    <label>اسم السنة<input id="f_name" value="${esc(y.name||'')}" placeholder="مثال: الصف الأول الثانوي" onkeydown="if(event.key==='Enter')saveYear('${id||''}')"></label>
+    <div class="mact"><button class="btn" onclick="saveYear('${id||''}')">حفظ</button><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
+}
+function saveYear(id){
+  const name = $('#f_name').value.trim(); if(!name) return toast('اكتب اسم السنة');
+  const nid = id||uid();
+  save('years', nid, {name, order: (id && S.years[id].order) || Date.now()}); closeM(); toast('تم الحفظ');
+  if(!id) go('year/'+nid);
+}
+function delYear(id){
+  ask('حذف السنة وكل مجموعاتها وطلابها وسجلاتهم؟ لا يمكن التراجع.', () => {
+    quiet = true; yearGroups(id).forEach(g => delGroupData(g.id));
+    list('students').filter(s => s.yearId===id).forEach(s => delStudentData(s.id));
+    del('years', id); quiet = false; go('years'); toast('تم الحذف');
+  });
+}
+function vYear(r){
+  const y = S.years[r.id]; if(!y) return notFound();
+  fabFn = () => groupForm(y.id);
+  const gs = yearGroups(y.id), t = sumStats(gs, month);
+  let h = `<div class="hd"><a class="bk" onclick="go('years')">‹ السنوات الدراسية</a>
+    <h2>${esc(y.name)}<span class="ic"><button onclick="yearForm('${y.id}')">✏️</button><button class="del" onclick="delYear('${y.id}')">🗑</button></span></h2>
+    <div class="chips"><span class="chip">${monthName(month)}</span></div></div>` +
+    kp([['الطلاب',num(t.count)],['الاشتراكات',num(t.expected)],['المحصّل',num(t.collected),'ok'],['لم يدفعوا',num(t.unpaid),'no']]);
+  h += `<div class="sec">المجموعات <a onclick="groupForm('${y.id}')">+ مجموعة</a></div>`;
+  if(!gs.length) return h + empty('لا توجد مجموعات. اضغط + لإضافة مجموعة وتحديد مواعيدها الأسبوعية.');
+  h += gs.map(g => { const s = groupStats(g,month), pct = s.count ? s.paid*100/s.count : 0;
+    return `<div class="gc ${groupColor(g)} yg" onclick="go('group/${g.id}/students')"><b>${esc(g.name)}</b>
+      <div class="chips">${schedChips(g) || '<span class="chip">بدون مواعيد</span>'}</div>
+      <p>${num(s.count)} طالب · اشتراك ${money(g.fee)} · إجمالي ${money(s.expected)}</p>
+      <div class="bar"><i style="width:${pct}%"></i></div><div class="row"><span>دفع ${num(s.paid)}</span><span>لم يدفع ${num(s.unpaid)}</span></div></div>`;
+  }).join('');
+  return h;
+}
+
+/* ========= المجموعة ========= */
+function groupForm(yid,id){
+  const g = id ? S.groups[id] : {};
+  tmpSched = (g.schedule||[]).map(x => ({...x}));
+  if(!tmpSched.length) tmpSched = [{day:6, from:'16:00', to:'17:30'}];
+  modal(`<h3>${id?'تعديل':'إضافة'} مجموعة</h3>
+    <label>اسم المجموعة<input id="f_name" value="${esc(g.name||'')}" placeholder="مثال: مجموعة أ"></label>
+    <label>الاشتراك الشهري للطالب (جنيه)<input id="f_fee" type="number" inputmode="numeric" min="0" value="${g.fee ?? ''}"></label>
+    <div class="lbl">المواعيد الأسبوعية</div><div id="schedRows"></div>
+    <button class="btn ghost" onclick="readSched();tmpSched.push({day:0,from:'16:00',to:'17:30'});drawSched()">+ إضافة موعد</button>
+    <div class="mact"><button class="btn" onclick="saveGroup('${yid}','${id||''}')">حفظ</button><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
+  drawSched();
+}
+function drawSched(){
+  $('#schedRows').innerHTML = tmpSched.map((x,i) => `<div class="srow">
+    <select class="sd">${WEEK.map(d => `<option value="${d}" ${+x.day===d?'selected':''}>${DAYS[d]}</option>`).join('')}</select>
+    <input type="time" class="sf" value="${x.from||''}"><span>إلى</span><input type="time" class="sto" value="${x.to||''}">
+    <button class="x" onclick="readSched();tmpSched.splice(${i},1);drawSched()">✕</button></div>`).join('');
+}
+function readSched(){
+  tmpSched = [...document.querySelectorAll('.srow')].map(r => ({day:+r.querySelector('.sd').value, from:r.querySelector('.sf').value, to:r.querySelector('.sto').value}));
+}
+function saveGroup(yid,id){
+  readSched(); const name = $('#f_name').value.trim(); if(!name) return toast('اكتب اسم المجموعة');
+  save('groups', id||uid(), {yearId:yid, name, fee:+$('#f_fee').value||0, schedule: tmpSched.filter(x => x.from)});
+  closeM(); toast('تم الحفظ');
+}
+function delGroupData(gid){
+  list('students').filter(s => s.groupId===gid).forEach(s => delStudentData(s.id));
+  list('attendance').filter(a => a.groupId===gid).forEach(a => del('attendance', a.id));
+  list('exams').filter(e => e.groupId===gid).forEach(e => del('exams', e.id));
+  del('groups', gid);
+}
+function delGroup(gid){
+  const g = S.groups[gid];
+  ask('حذف المجموعة وكل طلابها وسجلات الحضور والاشتراكات والامتحانات؟', () => { quiet = true; delGroupData(gid); quiet = false; go('year/'+g.yearId); toast('تم الحذف'); });
+}
+function vGroup(r){
+  const g = S.groups[r.id]; if(!g) return notFound();
+  fabFn = r.tab==='exams' ? () => examForm(g.id) : () => studentForm(null, g.yearId, g.id);
+  const y = S.years[g.yearId] || {}, st = groupStudents(g.id), s = groupStats(g, month), tab = r.tab || 'students';
+  let h = `<div class="hd"><a class="bk" onclick="go('year/${g.yearId}')">‹ ${esc(y.name)}</a>
+    <h2>${esc(g.name)}<span class="ic"><button onclick="groupForm('${g.yearId}','${g.id}')">✏️</button><button class="del" onclick="delGroup('${g.id}')">🗑</button></span></h2>
+    <div class="chips">${schedChips(g)}<span class="chip">اشتراك ${money(g.fee)}</span></div></div>`;
+  h += tabsHtml([['students','الطلاب'],['attendance','الحضور'],['payments','الاشتراكات'],['exams','الامتحانات']], tab, 'group/'+g.id+'/');
+  return h + (tab==='attendance' ? tabAtt(g,st) : tab==='payments' ? tabPay(g,st,s) : tab==='exams' ? tabExams(g) : tabStudents(g,st,s));
+}
+
+/* ----- الطلاب ----- */
+function tabStudents(g,st,s){
+  const q = search.trim();
+  const rows = q ? st.filter(x => x.name.includes(q) || (x.phone||'').includes(q) || (x.parentPhone||'').includes(q)) : st;
+  let h = kp([['الطلاب',num(s.count)],['إجمالي الاشتراك',num(s.expected)],['دفعوا',num(s.paid),'ok'],['لم يدفعوا',num(s.unpaid),'no']]);
+  if(!st.length) return h + empty('لا يوجد طلاب. اضغط + لتسجيل طالب.');
+  h += `<div class="tools"><input id="q" placeholder="🔍 بحث بالاسم أو الموبايل" value="${esc(search)}" oninput="search=this.value;render()">${monthChip().replace('class="mo"','class="mo" style="background:#fff;color:var(--ink);margin:0;border:1px solid var(--line)"').replace('color-scheme:dark','')}</div>
+    <div class="leg"><span><i style="background:var(--pri)"></i>منتظم ٨٥٪+</span><span><i style="background:var(--org)"></i>متوسط</span><span><i style="background:var(--bad)"></i>كثير الغياب</span></div>`;
+  h += rows.map(x => { const a = attStat(x,month), pay = payOf(x.id,month);
+    return `<div class="st link" onclick="go('student/${x.id}')"><div class="av">${esc(initial(x.name))}</div>
+      <div class="n">${esc(x.name)}<small>${money(feeOf(x))} · ${pay?'<span class="ok-t">دفع</span>':'<span class="no-t">لم يدفع</span>'} · حضر ${num(a.p)} من ${num(a.t)}</small></div>${pctPill(a.pct)}</div>`;
+  }).join('') || empty('لا نتائج');
+  return h;
+}
+function studentForm(id,yid,gid){
+  const s = id ? S.students[id] : {}; yid = s.yearId || yid; gid = s.groupId || gid;
+  const gs = yearGroups(yid); if(!gs.length){ closeM(); return toast('أضف مجموعة أولاً في هذه السنة'); }
+  modal(`<h3>${id?'تعديل بيانات طالب':'تسجيل طالب جديد'}</h3>
+    <label>اسم الطالب<input id="f_name" value="${esc(s.name||'')}"></label>
+    <label>المجموعة<select id="f_group">${gs.map(g => `<option value="${g.id}" ${g.id===gid?'selected':''}>${esc(g.name)}${schedText(g)?' — '+schedText(g):''}</option>`).join('')}</select></label>
+    <label>موبايل الطالب<input id="f_phone" type="tel" inputmode="tel" value="${esc(s.phone||'')}"></label>
+    <label>موبايل ولي الأمر<input id="f_parent" type="tel" inputmode="tel" value="${esc(s.parentPhone||'')}"></label>
+    <label>اشتراك خاص (فارغ = اشتراك المجموعة)<input id="f_fee" type="number" inputmode="numeric" min="0" value="${s.fee ?? ''}"></label>
+    <label>تاريخ الانضمام<input id="f_join" type="date" value="${s.id ? joinOf(s) : today()}"></label>
+    <div class="mact"><button class="btn" onclick="saveStudent('${id||''}','${yid}')">حفظ</button>
+    ${id ? '' : `<button class="btn org" onclick="saveStudent('','${yid}',true)">حفظ وإضافة آخر</button>`}
+    <button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
+}
+function saveStudent(id,yid,again){
+  const name = $('#f_name').value.trim(); if(!name) return toast('اكتب اسم الطالب');
+  const fee = $('#f_fee').value.trim(), gid = $('#f_group').value, old = id ? S.students[id] : {};
+  save('students', id||uid(), {yearId:yid, groupId:gid, name, phone:$('#f_phone').value.trim(), parentPhone:$('#f_parent').value.trim(), fee: fee==='' ? '' : +fee, joined: $('#f_join').value || today(), created: old.created || Date.now()});
+  toast('تم حفظ الطالب');
+  if(again) studentForm(null, yid, gid); else closeM();
+}
+function delStudentData(sid){
+  list('payments').filter(p => p.studentId===sid).forEach(p => del('payments', p.id));
+  list('attendance').forEach(a => { if(a.present && a.present[sid]){ const pr = {...a.present}; delete pr[sid]; save('attendance', a.id, {...a, present:pr}); } });
+  list('exams').forEach(e => { if(e.grades && sid in e.grades){ const gr = {...e.grades}; delete gr[sid]; save('exams', e.id, {...e, grades:gr}); } });
+  del('students', sid);
+}
+function delStudent(sid){
+  const s = S.students[sid];
+  ask('حذف الطالب "'+s.name+'" وكل سجلاته؟', () => { quiet = true; delStudentData(sid); quiet = false; go('group/'+s.groupId+'/students'); toast('تم الحذف'); });
+}
+
+/* ----- الحضور ----- */
+function tabAtt(g,st){
+  const id = g.id+'_'+attDate, a = S.attendance[id], pr = (a && a.present) || {};
+  const sched = (g.schedule||[]).some(x => +x.day===dayOf(attDate));
+  const pc = st.filter(s => pr[s.id]).length;
+  let h = `<div class="tools"><input type="date" id="attDateIn" value="${attDate}" onchange="attDate=this.value||today();render()" style="flex:0 1 170px">
+    <span class="pc ${sched?'g':'y'}">${DAYS[dayOf(attDate)]}${sched?'':' — مش من مواعيدها'}</span></div>
+    <div class="tools" style="justify-content:space-between"><span>حضر <b class="ok-t" style="font-size:17px">${num(pc)}</b> من ${num(st.length)}</span>
+    <span style="display:flex;gap:6px"><button class="btn" onclick="markAll('${g.id}',true)">حضور الكل</button><button class="btn ghost" onclick="markAll('${g.id}',false)">مسح</button></span></div>`;
+  if(!st.length) return h + empty('لا يوجد طلاب في المجموعة');
+  h += st.map(s => { const m = attStat(s, attDate.slice(0,7));
+    return `<div class="st link" onclick="toggleAtt('${g.id}','${s.id}')"><div class="av">${esc(initial(s.name))}</div><div class="n">${esc(s.name)}<small>حضور الشهر ${num(m.p)} من ${num(m.t)}</small></div><button class="tg ${pr[s.id]?'on':''}"></button></div>`;
+  }).join('');
+  const ses = sessionsOf(g.id, attDate.slice(0,7)).reverse();
+  if(ses.length) h += `<div class="sec">حصص ${monthName(attDate.slice(0,7))} (${num(ses.length)})</div><div class="chips" style="margin:0 16px">${ses.map(x => `<a class="chip link" onclick="attDate='${x.date}';render()">${DAYS[dayOf(x.date)]} ${dShort(x.date)} · ${num(Object.keys(x.present||{}).length)} حاضر</a>`).join('')}</div>`;
+  return h;
+}
+function toggleAtt(gid,sid){
+  const id = gid+'_'+attDate, pr = {...((S.attendance[id]||{}).present||{})};
+  if(pr[sid]) delete pr[sid]; else pr[sid] = true;
+  save('attendance', id, {groupId:gid, date:attDate, present:pr});
+}
+function markAll(gid,v){
+  const id = gid+'_'+attDate;
+  if(!v){ if(S.attendance[id]) ask('مسح حضور هذا اليوم؟', () => del('attendance', id)); return; }
+  const pr = {}; groupStudents(gid).forEach(s => pr[s.id] = true);
+  save('attendance', id, {groupId:gid, date:attDate, present:pr});
+}
+
+/* ----- الاشتراكات ----- */
+function tabPay(g,st,s){
+  const pct = s.expected ? Math.round(s.collected*100/s.expected) : 0;
+  let h = `<div class="sum"><div class="ring"><div class="circ" style="background:conic-gradient(var(--org) 0 ${Math.min(pct,100)}%,#ffffff22 0)"><div>${num(pct)}٪</div></div>
+    <div><div style="font-size:12px;opacity:.8">تم تحصيل — ${monthName(month)}</div><div style="font-size:21px;font-weight:800">${money(s.collected)}</div><div style="font-size:11px;opacity:.7">من ${money(s.expected)}</div></div></div>
+    <div class="sr"><span>دفعوا</span><b>${num(s.paid)} طالب</b></div><div class="sr"><span>لم يدفعوا</span><b style="color:#f3b562">${num(s.unpaid)} طالب</b></div></div>
+    <div class="tools" style="justify-content:space-between">${monthChip().replace('class="mo"','class="mo" style="background:#fff;color:var(--ink);margin:0;border:1px solid var(--line)"').replace('color-scheme:dark','')}
+    <div class="seg">${[['all','الكل'],['paid','دفعوا'],['unpaid','لم يدفعوا']].map(([k,l]) => `<button class="${payFilter===k?'on':''}" onclick="payFilter='${k}';render()">${l}</button>`).join('')}</div></div>`;
+  const rows = st.filter(x => { const p = payOf(x.id,month); return payFilter==='all' || (payFilter==='paid' ? p : !p); });
+  if(!rows.length) return h + empty(st.length ? 'لا يوجد طلاب في هذا الفلتر' : 'لا يوجد طلاب');
+  h += rows.map(x => { const p = payOf(x.id,month);
+    return p ? `<div class="st"><div class="av">${esc(initial(x.name))}</div><div class="n">${esc(x.name)}<small>دفع ${money(p.amount)} · ${dShort(p.date)}</small></div><span class="pill g" onclick="unpay('${x.id}')">✓ دفع</span></div>`
+      : `<div class="st"><div class="av">${esc(initial(x.name))}</div><div class="n">${esc(x.name)}<small>${money(feeOf(x))}</small></div>${waRemind(x)}<button class="btn" onclick="payForm('${x.id}')">تسجيل دفع</button></div>`;
+  }).join('');
+  return h + `<div class="hint">اضغط على "✓ دفع" لإلغاء الدفع</div>`;
+}
+function payForm(sid, m){
+  const s = S.students[sid]; m = m || month;
+  modal(`<h3>اشتراك ${monthName(m)}</h3><p style="margin-bottom:10px"><b>${esc(s.name)}</b></p>
+    <label>المبلغ المدفوع (جنيه)<input id="f_amt" type="number" inputmode="numeric" min="0" value="${feeOf(s)}"></label>
+    <label>تاريخ الدفع<input id="f_date" type="date" value="${today()}"></label>
+    <div class="mact"><button class="btn" onclick="savePay('${sid}','${m}')">تأكيد الدفع</button><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
+}
+function savePay(sid,m){
+  const s = S.students[sid];
+  save('payments', sid+'_'+m, {studentId:sid, groupId:s.groupId, month:m, amount:+$('#f_amt').value||0, date:$('#f_date').value||today()});
+  closeM(); toast('تم تسجيل الدفع');
+}
+function unpay(sid, m){ m = m || month; ask('إلغاء دفع شهر '+monthName(m)+'؟', () => del('payments', sid+'_'+m)); }
+
+/* ----- امتحانات المجموعة ----- */
+function examCard(e, showGroup){
+  const t = examStats(e), g = S.groups[e.groupId];
+  return `<div class="ex" onclick="go('exam/${e.id}')"><div class="t">${esc(e.title)} <small>${showGroup&&g?esc(gLabel(g))+' · ':''}${DAYS[dayOf(e.date)]} ${dShort(e.date)} · من ${num(e.max)}</small></div>
+    <div class="m"><span><b>${dec(t.avg)}</b>المتوسط</span><span><b class="ok-t">${num(t.max)}</b>أعلى</span><span><b class="no-t">${num(t.min)}</b>أقل</span><span><b>${num(t.n)} من ${num(t.total)}</b>امتحنوا</span></div></div>`;
+}
+function tabExams(g){
+  const ex = examsOf(g.id);
+  return `<div class="tools"><button class="btn full" onclick="examForm('${g.id}')">+ امتحان جديد</button></div>` +
+    (ex.length ? ex.map(e => examCard(e)).join('') : empty('لا توجد امتحانات لهذه المجموعة'));
+}
+
+/* ========= صفحة الطالب ========= */
+function vStudent(r){
+  const s = S.students[r.id]; if(!s) return notFound();
+  const g = S.groups[s.groupId] || {}, y = S.years[s.yearId] || {};
+  const all = attStat(s), ea = examAvg(s);
+  // months to show: from join month until current month (max 6)
+  const months = []; let d = new Date(thisMonth()+'-01T00:00'); const jm = joinOf(s).slice(0,7);
+  for(let i=0;i<6;i++){ const m = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); if(m < jm && i>0) break; months.push(m); d.setMonth(d.getMonth()-1); }
+  const unpaid = months.filter(m => !payOf(s.id,m)).length;
+  const wa = waUrl(s, `السلام عليكم، بخصوص الطالب ${s.name}`);
+  let h = `<div class="pf"><a class="bk" onclick="go('group/${s.groupId}/students')">‹ ${esc(g.name||'')}</a><div class="pav">${esc(initial(s.name))}</div>
+    <h2>${esc(s.name)}</h2><p>${esc(y.name||'')} · ${esc(g.name||'')} · اشتراك ${money(feeOf(s))}</p>
+    <div class="acts2">${s.phone?`<a href="tel:${esc(s.phone)}">📞 الطالب</a>`:''}${s.parentPhone?`<a href="tel:${esc(s.parentPhone)}">📞 ولي الأمر</a>`:''}${wa?`<a target="_blank" href="${wa}">💬 واتساب</a>`:''}
+    <button onclick="studentForm('${s.id}')">✏️ تعديل</button><button onclick="delStudent('${s.id}')">🗑 حذف</button></div></div>` +
+    kp([['نسبة الحضور', all.pct==null?'—':num(all.pct)+'٪', all.pct==null?'':all.pct>=60?'ok':'no'],['حضر', num(all.p)+' من '+num(all.t)],['شهور لم تُدفع', num(unpaid), unpaid?'no':'ok'],['متوسط الامتحانات', ea==null?'—':num(ea)+'٪']]);
+  h += `<div class="sec">سجل الشهور</div><div class="hist">` + months.map(m => {
+    const ses = sessionsOf(s.groupId,m).filter(a => a.date >= joinOf(s)), p = payOf(s.id,m), a = attStat(s,m);
+    return `<div class="hr"><div>${monthName(m)}<small>حضر ${num(a.p)} من ${num(a.t)}</small></div>
+      <div class="dots">${ses.map(x => `<i class="${x.present&&x.present[s.id]?'':'a'}" title="${x.date}"></i>`).join('')}</div>
+      ${p ? `<span class="pill g" onclick="unpay('${s.id}','${m}')">دفع ${num(p.amount)}</span>` : `<span class="pill r" onclick="payForm('${s.id}','${m}')">لم يدفع</span>`}</div>`;
+  }).join('') + '</div>';
+  const ex = examsOf(s.groupId).filter(e => hasGrade(e,s.id)).slice(0,8);
+  if(ex.length) h += `<div class="sec">الامتحانات</div>` + ex.map(e => { const sc = +e.grades[s.id], pc = e.max ? sc*100/e.max : 0, c = pc>=85?'var(--pri)':pc>=60?'var(--org)':'var(--bad)';
+    return `<div class="gr" onclick="go('exam/${e.id}')" style="cursor:pointer"><div class="n">${esc(e.title)}<small style="display:block;color:var(--mut);font-weight:400;font-size:10px">${dShort(e.date)}</small></div><div class="gb"><i style="width:${pc}%;background:${c}"></i></div><b style="color:${c};white-space:nowrap">${num(sc)} من ${num(e.max)}</b></div>`; }).join('');
+  return h + '<div class="hint">اضغط على حالة الدفع لتسجيله أو إلغائه</div>';
+}
+
+/* ========= الامتحانات ========= */
+function vExams(){
+  fabFn = () => examForm();
+  const ex = examsOf(null, month);
+  let h = `<div class="hd"><h2>الامتحانات ${monthChip().replace('class="mo"','class="mo" style="background:var(--pri-l);color:var(--pri-d);margin:0"').replace('color-scheme:dark','')}</h2>
+    <div class="chips"><span class="chip">${num(ex.length)} امتحان في ${monthName(month)}</span></div></div>`;
+  if(!ex.length) return h + empty('لا توجد امتحانات هذا الشهر. اضغط + لإضافة امتحان.');
+  return h + ex.map(e => examCard(e, true)).join('');
+}
+function examForm(gid, id){
+  const e = id ? S.exams[id] : {}; gid = e.groupId || gid;
+  const gs = sortedGroups(); if(!gs.length){ closeM(); return toast('أضف مجموعة أولاً'); }
+  modal(`<h3>${id?'تعديل':'إضافة'} امتحان</h3>
+    <label>المجموعة<select id="f_group" ${id?'disabled':''}>${gs.map(g => `<option value="${g.id}" ${g.id===gid?'selected':''}>${esc(gLabel(g))}</option>`).join('')}</select></label>
+    <label>اسم الامتحان<input id="f_name" value="${esc(e.title||'')}" placeholder="مثال: امتحان الوحدة الأولى"></label>
+    <label>التاريخ<input id="f_date" type="date" value="${e.date||today()}"></label>
+    <label>الدرجة النهائية<input id="f_max" type="number" inputmode="numeric" min="1" value="${e.max||20}"></label>
+    <div class="mact"><button class="btn" onclick="saveExam('${id||''}')">حفظ</button><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`);
+}
+function saveExam(id){
+  const title = $('#f_name').value.trim(); if(!title) return toast('اكتب اسم الامتحان');
+  const old = id ? S.exams[id] : {}, nid = id || uid();
+  save('exams', nid, {groupId: old.groupId || $('#f_group').value, title, date:$('#f_date').value||today(), max:+$('#f_max').value||20, grades: old.grades||{}});
+  closeM(); toast('تم الحفظ'); if(!id) go('exam/'+nid);
+}
+function delExam(id){ const e = S.exams[id]; ask('حذف الامتحان "'+e.title+'" ودرجاته؟', () => { quiet = true; del('exams', id); quiet = false; go('group/'+e.groupId+'/exams'); toast('تم الحذف'); }); }
+function vExam(r){
+  const e = S.exams[r.id]; if(!e) return notFound();
+  const g = S.groups[e.groupId] || {}, st = groupStudents(e.groupId), t = examStats(e);
+  let h = `<div class="hd"><a class="bk" onclick="go('group/${e.groupId}/exams')">‹ ${esc(gLabel(g))}</a>
+    <h2>${esc(e.title)}<span class="ic"><button onclick="examForm(null,'${e.id}')">✏️</button><button class="del" onclick="delExam('${e.id}')">🗑</button></span></h2>
+    <div class="chips"><span class="chip">${DAYS[dayOf(e.date)]} ${dShort(e.date)}</span><span class="chip">الدرجة النهائية ${num(e.max)}</span></div></div>
+    <div id="exStats">${kp([['المتوسط',dec(t.avg)],['أعلى درجة',num(t.max),'ok'],['أقل درجة',num(t.min),'no'],['امتحنوا',num(t.n)+' من '+num(t.total)]])}</div>
+    <div class="hint">اكتب درجة كل طالب — بتتحفظ لوحدها. اتركها فاضية لو غاب.</div>`;
+  if(!st.length) return h + empty('لا يوجد طلاب في المجموعة');
+  h += st.map(s => { const v = hasGrade(e,s.id) ? +e.grades[s.id] : '', pc = v!=='' && e.max ? v*100/e.max : 0, c = pc>=85?'var(--pri)':pc>=60?'var(--org)':'var(--bad)';
+    return `<div class="gr"><div class="n">${esc(s.name)}</div><div class="gb"><i style="width:${pc}%;background:${c}"></i></div>
+      <input id="gr_${s.id}" type="number" inputmode="decimal" min="0" max="${e.max}" value="${v}" placeholder="—" onchange="saveGrade('${e.id}','${s.id}',this.value)" onkeydown="if(event.key==='Enter'){const n=this.closest('.gr').nextElementSibling;n&&n.querySelector('input')&&n.querySelector('input').focus()}"></div>`;
+  }).join('');
+  return h;
+}
+function saveGrade(eid,sid,val){
+  const e = S.exams[eid], gr = {...(e.grades||{})};
+  if(val===''){ delete gr[sid]; } else { let v = +val; if(isNaN(v)) return; if(v > +e.max){ toast('الدرجة أكبر من النهائية'); v = +e.max; } gr[sid] = v; }
+  quiet = true; save('exams', eid, {...e, grades:gr}); quiet = false;
+  const t = examStats(S.exams[eid]);
+  const box = document.getElementById('exStats'); if(box) box.innerHTML = kp([['المتوسط',dec(t.avg)],['أعلى درجة',num(t.max),'ok'],['أقل درجة',num(t.min),'no'],['امتحنوا',num(t.n)+' من '+num(t.total)]]);
+  const inp = document.getElementById('gr_'+sid);
+  if(inp){ const v = gr[sid], pc = v!=null && e.max ? v*100/e.max : 0, c = pc>=85?'var(--pri)':pc>=60?'var(--org)':'var(--bad)'; const i = inp.closest('.gr').querySelector('.gb i'); i.style.width = pc+'%'; i.style.background = c; if(v!=null) inp.value = v; }
+}
+
+/* ========= لوحة الشرف ========= */
+function vHonor(){
+  const ys = sortedYears();
+  if(honYear!=='all' && !S.years[honYear]) honYear = 'all';
+  const rk = ranking(honYear), top = rk.slice(0,3);
+  const pod = (x,i) => x ? `<div class="pd ${i===0?'f':''}" onclick="go('student/${x.s.id}')"><div class="c">${esc(initial(x.s.name))}</div><b>${esc(x.s.name)}</b><span class="s">${num(x.p)} نقطة</span><div>${['🥇','🥈','🥉'][i]}</div></div>` : '';
+  let h = `<div class="top gold"><div class="nm" style="cursor:default">🏆 لوحة الشرف</div>${monthChip()}
+    ${top.length ? `<div class="pod">${pod(top[1],1)}${pod(top[0],0)}${pod(top[2],2)}</div>` : '<div class="sub">سجّل الحضور والامتحانات علشان يظهر الترتيب</div>'}</div>`;
+  if(ys.length > 1) h += `<div class="tabs" style="overflow-x:auto">${[['all','الكل'],...ys.map(y => [y.id, y.name])].map(([k,l]) => `<a class="${honYear===k?'on':''}" style="white-space:nowrap" onclick="honYear='${k}';render()">${esc(l)}</a>`).join('')}</div>`;
+  if(!rk.length) return h + empty('لا يوجد ترتيب لهذا الشهر بعد');
+  h += rk.slice(3).map((x,i) => { const a = attStat(x.s,month), e = examAvg(x.s,month);
+    return `<div class="st link" onclick="go('student/${x.s.id}')"><div class="rk">${num(i+4)}</div><div class="n">${esc(x.s.name)}<small>حضور ${a.pct==null?'—':num(a.pct)+'٪'} · امتحانات ${e==null?'—':num(e)+'٪'}</small></div><span class="pts">${num(x.p)} نقطة</span></div>`; }).join('');
+  return h + `<div class="hint">النقاط = متوسط نسبة الحضور ونسبة درجات الامتحانات في ${monthName(month)}</div>`;
+}
+
+/* ========= نسخ احتياطي ========= */
+function backupBlock(){
+  return `<div class="note"><b>${fs ? '☁️ البيانات متزامنة على Firebase' : canStore ? '💾 البيانات محفوظة على هذا الجهاز فقط' : '⚠️ المتصفح الحالي لا يسمح بالحفظ — البيانات ستضيع عند الإغلاق'}</b>
+    <div style="color:var(--mut);margin-top:3px">${fs ? 'أي تعديل يظهر على كل الأجهزة.' : 'لمزامنة البيانات بين الأجهزة اربط التطبيق بـ Firebase.'}</div>
+    <div class="acts"><button class="btn ghost" onclick="exportData()">⬇️ تنزيل نسخة احتياطية</button>
+    <label class="btn ghost">⬆️ استرجاع نسخة<input type="file" accept=".json" hidden onchange="importData(this.files[0])"></label>
+    ${fs && getLS('tutorData') ? '<button class="btn ghost" onclick="uploadLocal()">☁️ رفع بيانات الجهاز للسحابة</button>' : ''}</div></div>
+`;
+}
+function exportData(){
+  const b = new Blob([JSON.stringify(S)], {type:'application/json'}), a = document.createElement('a');
+  a.href = URL.createObjectURL(b); a.download = 'tutor-backup-'+today()+'.json'; a.click();
+}
+function importData(f){
+  if(!f) return; const r = new FileReader();
+  r.onload = () => { try{ const d = JSON.parse(r.result);
+    ask('سيتم إضافة بيانات النسخة (واستبدال المتطابق). متابعة؟', () => { quiet = true; COLS.forEach(c => Object.values(d[c]||{}).forEach(x => save(c, x.id, x))); quiet = false; render(); toast('تم الاسترجاع'); });
+  }catch(e){ toast('ملف غير صالح'); } };
+  r.readAsText(f);
+}
+
+/* ========= نوافذ وتنبيهات ========= */
+function modal(html){ $('#modalBox').innerHTML = html; $('#modal').classList.remove('hidden'); setTimeout(() => { const i = $('#modalBox input:not([type=date]):not([type=file])'); i && !i.value && i.focus(); }, 60); }
+let askCb = null;
+function ask(msg,cb){ askCb = cb; modal(`<h3>تأكيد</h3><p>${esc(msg)}</p><div class="mact"><button class="btn" style="background:var(--bad)" onclick="const f=askCb;closeM();f&&f()">تأكيد</button><button class="btn ghost" onclick="closeM()">إلغاء</button></div>`); }
+function closeM(){ $('#modal').classList.add('hidden'); }
+let tt; function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 2200); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeM(); });
+
+init();
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
