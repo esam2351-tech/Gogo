@@ -1,4 +1,4 @@
-const CACHE = 'tutor-v5';
+const CACHE = 'tutor-v6';
 const FILES = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 const OK = u => u.origin === self.location.origin || /(^|\.)gstatic\.com$|fonts\.googleapis\.com$/.test(u.hostname);
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); self.skipWaiting(); });
