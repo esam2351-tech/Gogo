@@ -146,6 +146,21 @@ input,select{font-family:inherit;font-size:15px;padding:9px 11px;border:1px soli
 .lbox input{margin-bottom:10px;text-align:center;font-size:17px;padding:12px}
 .lbox .lnk{color:var(--pri);font-size:13px;margin-top:14px;display:inline-block;font-weight:700}
 .lbox .err{color:var(--bad);font-size:12px;min-height:20px;margin-bottom:6px}
+
+.atw{margin:10px 16px 0;background:#fff;border-radius:16px;overflow:auto;max-height:70vh;box-shadow:0 1px 3px #0000000d}
+.att{border-collapse:separate;border-spacing:0;font-size:13px;width:100%;white-space:nowrap}
+.att th,.att td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--line)}
+.att thead th{position:sticky;top:0;background:#f4f2ec;z-index:2;font-size:11px;color:var(--mut);font-weight:700}
+.att thead th b{display:block;font-size:13px;color:var(--ink)}
+.att th.today{background:var(--pri-l)}
+.att .sn{position:sticky;right:0;background:#fff;z-index:1;text-align:right;min-width:110px;max-width:160px;width:1%;overflow:hidden;text-overflow:ellipsis;font-weight:700;cursor:pointer;border-left:1px solid var(--line);padding-right:12px}
+.att thead .sn{z-index:3;background:#f4f2ec}
+.att .sn small{display:block;font-weight:400;font-size:10px;color:var(--mut)}
+.att td.c{cursor:pointer;font-size:15px;font-weight:800;min-width:38px}
+.att td.p{color:var(--pri);background:#f1f9f6}.att td.a{color:var(--bad);background:#fdf4f1}.att td.u{color:#ccc}.att td.x{color:#e3e3e3;cursor:default}
+.att .tot{font-weight:800;min-width:44px}.att .tot.p{color:var(--pri)}.att .tot.a{color:var(--bad)}
+.att tbody tr:last-child td{border-bottom:0}
+.att .sep{border-right:2px solid var(--line)}
 #toast{position:fixed;bottom:150px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;opacity:0;transition:.25s;pointer-events:none;z-index:30;white-space:nowrap}
 #toast.show{opacity:1}
 
@@ -684,18 +699,46 @@ function vGroup(r){
 }
 
 /* ----- الطلاب ----- */
+function monthDates(g,m){
+  const set = new Set(sessionsOf(g.id,m).map(a => a.date)), td = today();
+  const [y,mo] = m.split('-').map(Number), n = new Date(y,mo,0).getDate();
+  for(let d=1; d<=n; d++){ const ds = m+'-'+String(d).padStart(2,'0'); if(ds > td) break; if((g.schedule||[]).some(x => +x.day===dayOf(ds))) set.add(ds); }
+  return [...set].sort();
+}
 function tabStudents(g,st,s){
   const q = search.trim();
   const rows = q ? st.filter(x => x.name.includes(q) || (x.phone||'').includes(q) || (x.parentPhone||'').includes(q)) : st;
   let h = kp([['الطلاب',num(s.count)],['إجمالي الاشتراك',num(s.expected)],['دفعوا',num(s.paid),'ok'],['لم يدفعوا',num(s.unpaid),'no']]);
   if(!st.length) return h + empty('لا يوجد طلاب. اضغط + لتسجيل طالب.');
-  h += `<div class="tools"><input id="q" placeholder="🔍 بحث بالاسم أو الموبايل" value="${esc(search)}" oninput="search=this.value;render()">${monthChip().replace('class="mo"','class="mo" style="background:#fff;color:var(--ink);margin:0;border:1px solid var(--line)"').replace('color-scheme:dark','')}</div>
-    <div class="leg"><span><i style="background:var(--pri)"></i>منتظم ٨٥٪+</span><span><i style="background:var(--org)"></i>متوسط</span><span><i style="background:var(--bad)"></i>كثير الغياب</span></div>`;
-  h += rows.map(x => { const a = attStat(x,month), pay = payOf(x.id,month);
-    return `<div class="st link" onclick="go('student/${x.id}')"><div class="av">${esc(initial(x.name))}</div>
-      <div class="n">${esc(x.name)}<small>${money(feeOf(x))} · ${pay?'<span class="ok-t">دفع</span>':'<span class="no-t">لم يدفع</span>'} · حضر ${num(a.p)} من ${num(a.t)}</small></div>${pctPill(a.pct)}</div>`;
-  }).join('') || empty('لا نتائج');
+  h += `<div class="tools"><input id="q" placeholder="🔍 بحث بالاسم أو الموبايل" value="${esc(search)}" oninput="search=this.value;render()">${monthChip().replace('class="mo"','class="mo" style="background:#fff;color:var(--ink);margin:0;border:1px solid var(--line)"')}</div>`;
+  if(!rows.length) return h + empty('لا نتائج');
+  const dates = monthDates(g, month), td = today();
+  h += `<div class="atw"><table class="att"><thead><tr><th class="sn">الطالب</th>` +
+    dates.map(d => `<th class="${d===td?'today':''}">${DAYS[dayOf(d)].replace('ال','')}<b>${num(+d.slice(8))}/${num(+d.slice(5,7))}</b></th>`).join('') +
+    `<th class="sep">حضر</th><th>غاب</th><th>النسبة</th><th>الدفع</th></tr></thead><tbody>` +
+    rows.map(x => {
+      const j = joinOf(x); let p = 0, a = 0;
+      const cells = dates.map(d => {
+        if(d < j) return '<td class="c x">—</td>';
+        const rec = S.attendance[g.id+'_'+d];
+        if(!rec) return `<td class="c u" onclick="cellAtt('${g.id}','${x.id}','${d}')">·</td>`;
+        const ok = rec.present && rec.present[x.id]; ok ? p++ : a++;
+        return `<td class="c ${ok?'p':'a'}" onclick="cellAtt('${g.id}','${x.id}','${d}')">${ok?'✓':'✗'}</td>`;
+      }).join('');
+      const pct = p+a ? Math.round(p*100/(p+a)) : null, pay = payOf(x.id,month);
+      return `<tr><td class="sn" onclick="go('student/${x.id}')">${esc(x.name)}<small>${money(feeOf(x))}</small></td>${cells}
+        <td class="tot p sep">${num(p)}</td><td class="tot a">${num(a)}</td><td>${pct==null?'—':`<span class="pc ${pctCls(pct)}">${num(pct)}٪</span>`}</td>
+        <td>${pay?'<span class="pc g">دفع</span>':'<span class="pc r">لم يدفع</span>'}</td></tr>`;
+    }).join('') + `</tbody></table></div>`;
+  h += `<div class="hint">✓ حضر · ✗ غاب · <b>·</b> حصة لسه متسجلتش — اضغط على أي خانة لتغيير الحضور، وعلى الاسم لفتح صفحة الطالب</div>`;
+  if(!dates.length) h += empty('مفيش حصص في الشهر ده لسه — حدد مواعيد المجموعة أو سجّل الحضور');
   return h;
+}
+function cellAtt(gid,sid,d){
+  const id = gid+'_'+d, rec = S.attendance[id];
+  const pr = {...((rec||{}).present||{})};
+  if(pr[sid]) delete pr[sid]; else pr[sid] = true;
+  save('attendance', id, {groupId:gid, date:d, present:pr});
 }
 function studentForm(id,yid,gid){
   const s = id ? S.students[id] : {}; yid = s.yearId || yid; gid = s.groupId || gid;
